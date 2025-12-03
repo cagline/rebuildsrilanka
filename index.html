@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sri Lanka FB Frame</title>
+  <style>
+    :root {
+      --color-primary: #8b1538;
+      --color-accent1: #f25476;
+      --color-white: #ffffff;
+      --sl-teal: #0b7c69;
+      --sl-orange: #f28c2b;
+      --sl-maroon: #8b1538;
+      --sl-gold: #f5b82e;
+    }
+
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: #faf7fb;
+      color: #242424;
+    }
+
+    /* Top banner */
+    .top-bar {
+      background: #ffffff;
+      color: #5a0b20;
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: solid 10px var(--color-primary);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      height: 64px;
+      width: auto;
+      display: block;
+    }
+
+    .flag-stripe {
+      display: flex;
+      height: 6px;
+      width: 100%;
+    }
+
+    .stripe-green {
+      background-color: var(--sl-teal);
+      flex: 1;
+    }
+
+    .stripe-orange {
+      background-color: var(--sl-orange);
+      flex: 1;
+    }
+
+    .stripe-maroon {
+      background-color: var(--sl-maroon);
+      flex: 3;
+    }
+
+    .stripe-gold {
+      background-color: var(--sl-gold);
+      flex: 0.2;
+    }
+
+    .donate-btn {
+      background-color: var(--color-primary);
+      border-radius: 999px;
+      padding: 10px 26px;
+      border: none;
+      color: var(--color-white);
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .donate-btn:hover {
+      color: var(--color-white);
+      background-color: var(--color-accent1);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(90deg, #ffffff 0%, #fff4f7 40%, #ffe7f0 100%);
+      border-bottom: 4px solid #f8c343;
+      padding: 40px 32px 48px;
+      text-align: center;
+    }
+
+    .hero-kicker {
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #8b1538;
+      margin-bottom: 10px;
+    }
+
+    .hero-title-main {
+      font-size: 34px;
+      margin: 4px 0;
+      font-weight: 700;
+      color: #222222;
+    }
+
+    .hero-title-sub {
+      font-size: 26px;
+      margin: 4px 0 12px;
+      font-weight: 600;
+      color: #b1204a;
+    }
+
+    .hero-copy {
+      max-width: 960px;
+      margin: 20px auto 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #4b4b4b;
+    }
+
+    .tool-section {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 24px 40px;
+    }
+
+    .container { display: flex; gap: 30px; align-items: flex-start; }
+    .left { flex-shrink: 0; }
+    .right { flex: 1; }
+    .controls { margin: 10px 0; }
+    .controls label { display: inline-block; width: 80px; }
+    input[type="range"] { width: 200px; }
+    canvas { border: 1px solid #ccc; display: block; cursor: grab; }
+    canvas:active { cursor: grabbing; }
+    button { padding: 8px 16px; margin-top: 10px; }
+
+    .frame-selection { margin-bottom: 15px; }
+    .frame-selection h4 { margin: 0 0 10px 0; }
+    .frame-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
+    .frame-thumb {
+      width: 80px;
+      height: 80px;
+      border: 3px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      object-fit: cover;
+      transition: border-color 0.2s;
+    }
+    .frame-thumb:hover { border-color: #888; }
+    .frame-thumb.selected { border-color: #007bff; }
+    .hint { font-size: 12px; color: #666; margin-top: 5px; }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-bar">
+    <div class="brand">
+      <img src="image.png" alt="Rebuilding Sri Lanka" class="brand-logo">
+    </div>
+    <a href="https://donate.gov.lk/" target="_blank" rel="noopener" class="donate-btn">Donate Now</a>
+  </header>
+  <div class="flag-stripe">
+    <div class="stripe-green"></div>
+    <div class="stripe-orange"></div>
+    <div class="stripe-maroon"></div>
+    <div class="stripe-gold"></div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-kicker">🇱🇰 Rebuilding Sri Lanka</div>
+    <h1 class="hero-title-main">Help Rebuild Lives After Cyclone Ditwah</h1>
+    <h2 class="hero-title-sub">Turn your profile picture into a message of hope</h2>
+
+  </section>
+
+  <main class="tool-section">
+    <h3>Make your Facebook frame picture</h3>
+
+  <div class="container">
+    <div class="left">
+      <canvas id="canvas"></canvas>
+      <p class="hint">Drag to move your photo</p>
+    </div>
+
+    <div class="right">
+      <div class="frame-selection">
+        <h4>Select Frame:</h4>
+        <div class="frame-thumbs">
+          <img src="frames/helped.png" class="frame-thumb selected" data-frame="frames/helped.png" title="I Helped">
+          <img src="frames/donated.png" class="frame-thumb" data-frame="frames/donated.png" title="I Donated">
+        </div>
+      </div>
+
+      <input type="file" id="photo" accept="image/*"><br><br>
+
+      <div class="controls">
+        <label>Size:</label>
+        <input type="range" id="size" min="50" max="200" value="100">
+        <span id="sizeVal">100%</span>
+      </div>
+
+      <button id="download" disabled>Download image</button>
+      <p class="hero-copy">
+        Create a Facebook profile picture with a solidarity frame to stand with families affected across Sri Lanka.
+        Download your image and use it on Facebook to spread awareness and keep the conversation going while
+        our communities recover.
+      </p>
+    </div>
+  </div>
+  </main>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const photoInput = document.getElementById("photo");
+    const downloadBtn = document.getElementById("download");
+    const frameThumbs = document.querySelectorAll(".frame-thumb");
+
+    const sizeSlider = document.getElementById("size");
+    const sizeVal = document.getElementById("sizeVal");
+
+    let frameImg = new Image();
+    let userImg = null;
+    let frameLoaded = false;
+
+    // Position offset for drag
+    let offsetX = 0;
+    let offsetY = 0;
+
+    // Drag state
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragStartOffsetX = 0;
+    let dragStartOffsetY = 0;
+
+    // Load initial frame
+    loadFrame("frames/helped.png");
+
+    function loadFrame(src) {
+      frameLoaded = false;
+      frameImg = new Image();
+      frameImg.src = src;
+      frameImg.onload = function () {
+        frameLoaded = true;
+        canvas.width = 600;
+        canvas.height = 600;
+        draw();
+      };
+    }
+
+    // Frame thumbnail click
+    frameThumbs.forEach(function (thumb) {
+      thumb.addEventListener("click", function () {
+        frameThumbs.forEach(function (t) { t.classList.remove("selected"); });
+        this.classList.add("selected");
+        loadFrame(this.dataset.frame);
+      });
+    });
+
+    photoInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          userImg = img;
+          offsetX = 0;
+          offsetY = 0;
+          draw();
+          if (frameLoaded) downloadBtn.disabled = false;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    sizeSlider.addEventListener("input", function () {
+      sizeVal.textContent = this.value + "%";
+      draw();
+    });
+
+    // Drag to move photo
+    canvas.addEventListener("mousedown", function (e) {
+      if (!userImg) return;
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      dragStartOffsetX = offsetX;
+      dragStartOffsetY = offsetY;
+    });
+
+    document.addEventListener("mousemove", function (e) {
+      if (!isDragging) return;
+      offsetX = dragStartOffsetX + (e.clientX - dragStartX);
+      offsetY = dragStartOffsetY + (e.clientY - dragStartY);
+      draw();
+    });
+
+    document.addEventListener("mouseup", function () {
+      isDragging = false;
+    });
+
+    // Touch support for mobile
+    canvas.addEventListener("touchstart", function (e) {
+      if (!userImg) return;
+      e.preventDefault();
+      isDragging = true;
+      dragStartX = e.touches[0].clientX;
+      dragStartY = e.touches[0].clientY;
+      dragStartOffsetX = offsetX;
+      dragStartOffsetY = offsetY;
+    });
+
+    document.addEventListener("touchmove", function (e) {
+      if (!isDragging) return;
+      offsetX = dragStartOffsetX + (e.touches[0].clientX - dragStartX);
+      offsetY = dragStartOffsetY + (e.touches[0].clientY - dragStartY);
+      draw();
+    });
+
+    document.addEventListener("touchend", function () {
+      isDragging = false;
+    });
+
+    function draw() {
+      if (!frameLoaded) return;
+
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      if (userImg) {
+        const sizePercent = parseInt(sizeSlider.value) / 100;
+
+        const baseScale = Math.max(w / userImg.width, h / userImg.height);
+        const scale = baseScale * sizePercent;
+
+        const dw = userImg.width * scale;
+        const dh = userImg.height * scale;
+        const dx = (w - dw) / 2 + offsetX;
+        const dy = (h - dh) / 2 + offsetY;
+
+        ctx.drawImage(userImg, dx, dy, dw, dh);
+      }
+
+      ctx.drawImage(frameImg, 0, 0, w, h);
+    }
+
+    downloadBtn.addEventListener("click", function () {
+      const a = document.createElement("a");
+      a.download = "fb-profile-frame.png";
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+    });
+  </script>
+</body>
+</html>
