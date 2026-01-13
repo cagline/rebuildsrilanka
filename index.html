@@ -2,7 +2,19 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sri Lanka FB Frame</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KFWWYBV6RJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KFWWYBV6RJ');
+  </script>
+
   <style>
     :root {
       --color-primary: #8b1538;
@@ -141,7 +153,7 @@
     .controls { margin: 10px 0; }
     .controls label { display: inline-block; width: 80px; }
     input[type="range"] { width: 200px; }
-    canvas { border: 1px solid #ccc; display: block; cursor: grab; }
+    canvas { border: 1px solid #ccc; display: block; cursor: grab; max-width: 100%; height: auto; }
     canvas:active { cursor: grabbing; }
     button { padding: 8px 16px; margin-top: 10px; }
 
@@ -166,13 +178,16 @@
         flex-direction: column;
         align-items: center;
       }
+      .left, .right {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
   <header class="top-bar">
     <div class="brand">
-      <img src="image.png" alt="Rebuilding Sri Lanka" class="brand-logo">
+      <img src="logo.png" alt="Rebuilding Sri Lanka" class="brand-logo">
     </div>
     <a href="https://donate.gov.lk/" target="_blank" rel="noopener" class="donate-btn">Donate Now</a>
   </header>
@@ -203,9 +218,8 @@
       <div class="frame-selection">
         <h4>Select Frame:</h4>
         <div class="frame-thumbs">
-          <img src="frames/helped.png" class="frame-thumb selected" data-frame="frames/helped.png" title="I Helped">
-          <img src="frames/donated.png" class="frame-thumb" data-frame="frames/donated.png" title="I Donated">
-          <img src="frames/rebuilding-sri-lanka.png" class="frame-thumb" data-frame="frames/rebuilding-sri-lanka.png" title="Let’s Rebuild Sri Lanka">
+          <img src="frames/rebuilding-sri-lanka-1.png" class="frame-thumb" data-frame="frames/rebuilding-sri-lanka-1.png" title="Let’s Rebuild Sri Lanka">
+          <img src="frames/rebuilding-sri-lanka-2.png" class="frame-thumb" data-frame="frames/rebuilding-sri-lanka-2.png" title="Let’s Rebuild Sri Lanka">
         </div>
       </div>
 
@@ -233,6 +247,7 @@
     const photoInput = document.getElementById("photo");
     const downloadBtn = document.getElementById("download");
     const frameThumbs = document.querySelectorAll(".frame-thumb");
+    const donateBtn = document.querySelector(".donate-btn");
 
     const sizeSlider = document.getElementById("size");
     const sizeVal = document.getElementById("sizeVal");
@@ -254,7 +269,7 @@
 
     // Load initial frame
     loadFrame("frames/helped.png");
-
+d
     function loadFrame(src) {
       frameLoaded = false;
       frameImg = new Image();
@@ -267,6 +282,14 @@
       };
     }
 
+    // Event Listeners for Analytics
+    donateBtn.addEventListener("click", function() {
+      gtag('event', 'click', {
+        'event_category': 'engagement',
+        'event_label': 'Donate Button'
+      });
+    });
+
     // Frame thumbnail click
     frameThumbs.forEach(function (thumb) {
       thumb.addEventListener("click", function () {
@@ -277,6 +300,10 @@
     });
 
     photoInput.addEventListener("change", function () {
+      gtag('event', 'upload', {
+        'event_category': 'engagement',
+        'event_label': 'Photo Uploaded'
+      });
       const file = this.files[0];
       if (!file) return;
 
@@ -368,6 +395,10 @@
     }
 
     downloadBtn.addEventListener("click", function () {
+      gtag('event', 'click', {
+        'event_category': 'engagement',
+        'event_label': 'Download Image'
+      });
       const a = document.createElement("a");
       a.download = "fb-profile-frame.png";
       a.href = canvas.toDataURL("image/png");
