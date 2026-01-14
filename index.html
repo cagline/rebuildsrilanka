@@ -17,31 +17,30 @@
 
   <style>
     :root {
-      --color-primary: #8b1538;
-      --color-accent1: #f25476;
+      --color-primary: #355951; /* dark green-gray */
+      --color-accent1: #00a899; /* cyan/teal */
+      --color-accent1-hover: #008f82; /* darker cyan/teal */
       --color-white: #ffffff;
-      --sl-teal: #0b7c69;
-      --sl-orange: #f28c2b;
-      --sl-maroon: #8b1538;
-      --sl-gold: #f5b82e;
+      --color-bg-light: #f7f7f7;
+      --color-text-dark: #222222;
+      --color-text-light: #4b4b4b;
     }
 
     body {
       font-family: sans-serif;
       margin: 0;
-      background: #faf7fb;
-      color: #242424;
+      background: var(--color-bg-light);
+      color: var(--color-text-dark);
     }
 
     /* Top banner */
     .top-bar {
-      background: #ffffff;
-      color: #5a0b20;
+      background: var(--color-white);
       padding: 14px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: solid 10px var(--color-primary);
+      border-bottom: 1px solid #e0e0e0;
     }
 
     .brand {
@@ -56,41 +55,15 @@
       display: block;
     }
 
-    .flag-stripe {
-      display: flex;
-      height: 6px;
-      width: 100%;
-    }
-
-    .stripe-green {
-      background-color: var(--sl-teal);
-      flex: 1;
-    }
-
-    .stripe-orange {
-      background-color: var(--sl-orange);
-      flex: 1;
-    }
-
-    .stripe-maroon {
-      background-color: var(--sl-maroon);
-      flex: 3;
-    }
-
-    .stripe-gold {
-      background-color: var(--sl-gold);
-      flex: 0.2;
-    }
-
     .donate-btn {
-      background-color: var(--color-primary);
+      background-color: var(--color-accent1);
       border-radius: 999px;
       padding: 10px 26px;
       border: none;
       color: var(--color-white);
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -98,14 +71,13 @@
     }
 
     .donate-btn:hover {
+      background-color: var(--color-accent1-hover);
       color: var(--color-white);
-      background-color: var(--color-accent1);
     }
 
     /* Hero */
     .hero {
-      background: linear-gradient(90deg, #ffffff 0%, #fff4f7 40%, #ffe7f0 100%);
-      border-bottom: 4px solid #f8c343;
+      background: var(--color-bg-light);
       padding: 40px 32px 48px;
       text-align: center;
     }
@@ -115,7 +87,7 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-weight: 700;
-      color: #8b1538;
+      color: var(--color-primary);
       margin-bottom: 10px;
     }
 
@@ -123,14 +95,14 @@
       font-size: 34px;
       margin: 4px 0;
       font-weight: 700;
-      color: #222222;
+      color: var(--color-primary);
     }
 
     .hero-title-sub {
       font-size: 26px;
       margin: 4px 0 12px;
       font-weight: 600;
-      color: #b1204a;
+      color: var(--color-accent1);
     }
 
     .hero-copy {
@@ -138,7 +110,7 @@
       margin: 20px auto 0;
       font-size: 15px;
       line-height: 1.7;
-      color: #4b4b4b;
+      color: var(--color-text-light);
     }
 
     .tool-section {
@@ -170,7 +142,7 @@
       transition: border-color 0.2s;
     }
     .frame-thumb:hover { border-color: #888; }
-    .frame-thumb.selected { border-color: #007bff; }
+    .frame-thumb.selected { border-color: var(--color-accent1); }
     .hint { font-size: 12px; color: #666; margin-top: 5px; }
 
     @media (max-width: 768px) {
@@ -187,20 +159,14 @@
 <body>
   <header class="top-bar">
     <div class="brand">
-      <img src="logo.png" alt="Rebuilding Sri Lanka" class="brand-logo">
+      <img src="logo.svg" alt="Rebuilding Sri Lanka" class="brand-logo">
     </div>
     <a href="https://donate.gov.lk/" target="_blank" rel="noopener" class="donate-btn">Donate Now</a>
   </header>
-  <div class="flag-stripe">
-    <div class="stripe-green"></div>
-    <div class="stripe-orange"></div>
-    <div class="stripe-maroon"></div>
-    <div class="stripe-gold"></div>
-  </div>
 
   <section class="hero">
     <div class="hero-kicker">🇱🇰 Rebuilding Sri Lanka</div>
-    <h1 class="hero-title-main">Help Rebuild Lives After Cyclone Ditwah</h1>
+    <h1 class="hero-title-main">Rebuilding Communities, Restoring Hope</h1>
     <h2 class="hero-title-sub">Turn your profile picture into a message of hope</h2>
 
   </section>
@@ -219,8 +185,10 @@
         <h4>Select Frame:</h4>
         <!-- This container holds the thumbnails for the different frames -->
         <div class="frame-thumbs">
-          <img src="frames/rebuilding-sri-lanka-1.png" class="frame-thumb" data-frame="frames/rebuilding-sri-lanka-1.png" title="Let’s Rebuild Sri Lanka">
-          <img src="frames/rebuilding-sri-lanka-2.png" class="frame-thumb" data-frame="frames/rebuilding-sri-lanka-2.png" title="Let’s Rebuild Sri Lanka">
+          <!-- Each 'img' tag represents a selectable frame thumbnail -->
+          <!-- The 'selected' class on this image makes it the default frame -->
+          <img src="frames/rebuilding-srilanka-1.png" class="frame-thumb selected" data-frame="frames/rebuilding-srilanka-1.png" title="Let's Rebuild Sri Lanka">
+          <img src="frames/rebuilding-srilanka-2.png" class="frame-thumb" data-frame="frames/rebuilding-srilanka-2.png" title="Let's Rebuild Sri Lanka">
         </div>
       </div>
 
